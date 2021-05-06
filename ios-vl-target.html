@@ -188,6 +188,81 @@ view.addSubview(storyHomeView)</code></pre>
 <pre><code class="language-swift">let storyView = Visilabs.callAPI().getStoryView(actionId: 67)
 view.addSubview(storyHomeView)</code></pre>
                             </section>
+
+                            <section id="mail-subscription-form" class="doc-section">
+                                <h2 class="section-title">Mail Subscription Form</h2>
+                                <p>After form is created at RMC panel, likewise in-app message, existence of mail subscription form is controlled by after each customEvent call. It is shown as follows;
+                                    </p>
+                                    <div style="text-align: center;"><img src="assets/images/mailsubs.jpeg" style="width: 100%;max-width: 700px;"></div>
+                            </section>
+
+                            <section id="spin-to-win" class="doc-section">
+                                <h2 class="section-title">Spin To Win</h2>
+                                <p>After form is created at RMC panel, likewise in-app message, existence of spin to win is controlled by after each customEvent call. It is shown as follows;
+                                    </p>
+                                    <p>
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Spin to Win Full</td>
+                                                    <td>Spin to Win Half</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><img src="assets/images/spinfull.jpeg" style="max-width:100%;"/></td>
+                                                    <td><img src="assets/images/spinhalf.jpeg" style="max-width:100%;"/></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </p>
+                            </section>
+
+                            <section id="geofencing" class="doc-section">
+                                <h2 class="section-title">Geofencing</h2>
+                                <p>To enable location services in your application first of all you need to add the following keys to your Info.plist file.
+                                    </p>
+                                    <p>
+                                        <ul>
+                                            <li>NSLocationAlwaysAndWhenInUseUsageDescription</li>
+                                            <li>NSLocationWhenInUseUsageDescription</li>
+                                        </ul>
+                                    </p>
+                                    <p>An example implementation of these permissions as follows:</p>
+                                    <div class="code-block">
+                                        <pre>
+<code class="language-swift"><key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+<string>We need access to your location for better user experience.</string>
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>We need access to your location for better user experience.</string></code>
+                                        </pre>
+                                    </div>
+                                    <p>
+                                        You also need to add the following keys under UIBackgroundModes in your Info.plist file to monitor regions, refresh region list and receive push notifications.
+                                    </p>
+                                    <div class="code-block">
+                                        <pre>
+<code class="language-swift"><array>
+    <string>fetch</string>
+    <string>location</string>
+    <string>remote-notification</string>
+</array></code>
+                                        </pre>
+                                    </div>
+                                    <p>
+                                        When initializing Visilabs SDK you need to set geofenceEnabled parameter of createAPI method to true. You may also change the maxGeofenceCount to a value lower than 20. Apple prevents any single application from monitoring more than 20 regions simultaneously. Visilabs can use all these slots.
+                                    </p>
+                                    <div class="code-block">
+                                        <pre>
+<code class="language-swift">import VisilabsIOS
+func application(_ application: UIApplication, didFinishLaunchingWithOptions 
+    launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    Visilabs.createAPI(organizationId: "YOUR_ORGANIZATION_ID", profileId: "YOUR_PROFILE_ID"
+    , dataSource: "YOUR_DATASOURCE", inAppNotificationsEnabled: false, channel: "IOS"
+    , requestTimeoutInSeconds: 30, geofenceEnabled: true, maxGeofenceCount: 20)
+    return true
+}</code>
+                                        </pre>
+                                    </div>
+                            </section>
                             
                             <section id="code-section" class="doc-section">
                                 <h2 class="section-title">Code</h2>
