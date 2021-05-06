@@ -1042,28 +1042,28 @@ select {
 }
 
 table td {
-  padding: 6px 13px;
-  border: 1px solid #3b434b;
+  padding: 6px 13px !important;
+  border: 1px solid #3b434b !important;
 }
 
 table tr:nth-child(2n) {
-  background-color: #161b22;
+  background-color: #161b22 !important;
 }
 
 table {
-  display: block;
-  width: 100%;
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
-  max-width: 100%;
-  overflow: auto;
+  display: block !important;
+  width: 100% !important;
+  width: -webkit-max-content !important;
+  width: -moz-max-content !important;
+  width: max-content !important;
+  max-width: 100% !important;
+  overflow: auto !important;
 }
 
 table th {
-  text-align: center;
-  padding: 6px 13px;
-  border: 1px solid #3b434b;
+  text-align: center !important;
+  padding: 6px 13px !important;
+  border: 1px solid #3b434b !important;
 }
 /*
 .affix-top {
