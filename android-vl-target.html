@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Android Visilabs Documentation</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">    
+    <link rel="shortcut icon" href="favicon.ico">  
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- FontAwesome JS -->
+    <script defer src="assets/fontawesome/js/all.js"></script>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">   
+    <!-- Plugins CSS -->    
+    <link rel="stylesheet" href="assets/plugins/prism/prism.css">
+    <link rel="stylesheet" href="assets/plugins/elegant_font/css/style.css">  
+      
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
+    
+</head> 
+
+<body class="body-green">
+    <div class="page-wrapper">
+        <!-- ******Header****** -->
+        <header id="header" class="header">
+            <div class="container">
+                <div class="branding">
+                    <h1 class="logo">
+                        <a href="index.html">
+                            <img aria-hidden="true" src="assets/images/android-logo.svg" width="25"/>
+                            <span class="text-bold" style="vertical-align: middle;">Android Visilabs Targeting Actions</span>
+                        </a>
+                    </h1>
+                    
+                </div><!--//branding-->
+                
+            </div><!--//container-->
+        </header><!--//header-->
+        <div class="doc-wrapper">
+            <div class="container">
+                
+                <div class="doc-body row">
+                    <div class="doc-content col-md-9 col-12 order-1">
+                        <div class="content-inner">
+                            <section id="inapp-messaging" class="doc-section">
+                                <h2 class="section-title">In-App Messaging</h2>
+                                <div class="section-block">
+                                    <p>In-App Messages are notifications sent to your users when they are directly active in your mobile application.
+                                    </p>
+                                    <p>Use the following method to show in-app messages and initialize the RMC:</p>
+                                    <pre><code class="language-java">Visilabs.CreateAPI("OrganizationID", "SiteID", "http://lgr.visilabs.net", "DataSource", "http://rt.visilabs.net" , "Android" , getApplicationContext(), "http://s.visilabs.net/json", "http://s.visilabs.net/actjson", requestTimeout);</code></pre>
+                                    <p>Add the required getActivity() parameter to all customEvent() calls:</p>
+                                    <pre><code class="language-java">HashMap<String,String> parameters = new HashMap<String, String>();
+parameters.put("OM.exVisitorID", "test@visilabs.com");
+parameters.put("OM.sys.AppID", "visilabs"); //
+
+Visilabs.CallAPI().customEvent("android-visilab", parameters, getActivity());</code></pre>
+<p>The existence of a relevant in-app message for an event controlled by after each customEvent call. You can create and customize your in-app messages on https://intelligence.relateddigital.com/#Target/TargetingAction/TAList page of RMC administration panel.
+</p>
+<p>There are 9 types of in-app messages:</p>
+    <p>
+        <table>
+            <thead>
+            <tr>
+            <th align="center">Pop-up - Image, Header, Text &amp; Button</th>
+            <th>Mini-icon&amp;text</th>
+            <th>Full Screen-image</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td align="center"><a target="_blank" rel="noopener noreferrer" href="assets/images/full.png"><img src="assets/images/full.png" alt="full" style="max-width:100%;"></a></td>
+            <td><a target="_blank" rel="noopener noreferrer" href="assets/images/mini.png"><img src="assets/images/mini.png" alt="mini" style="max-width:100%;"></a></td>
+            <td><a target="_blank" rel="noopener noreferrer" href="assets/images/full_image.png"><img src="assets/images/full_image.png" alt="full_image" style="max-width:100%;"></a></td>
+            </tr>
+            <tr>
+            <th align="center">Full Screen-image&amp;button</th>
+            <th>Pop-up - Image, Header, Text &amp; Button</th>
+            <th>Pop-up-Survey</th>
+            </tr>
+            <tr>
+            <td align="center"><a target="_blank" rel="noopener noreferrer" href="assets/images/image_button.png"><img src="assets/images/image_button.png" alt="image_button" style="max-width:100%;"></a></td>
+            <td><a target="_blank" rel="noopener noreferrer" href="assets/images/image_text_button.png"><img src="assets/images/image_text_button.png" alt="image_text_button" style="max-width:100%;"></a></td>
+            <td><a target="_blank" rel="noopener noreferrer" href="assets/images/smile_rating.png"><img src="assets/images/smile_rating.png" alt="smile_rating" style="max-width:100%;"></a></td>
+            </tr>
+            <tr>
+            <th align="center">Pop-up - NPS with Text &amp; Button</th>
+            <th>Native Alert &amp; Actionsheet</th>
+            <th>NPS with numbers</th>
+            </tr>
+            <tr>
+            <td align="center"><a target="_blank" rel="noopener noreferrer" href="assets/images/nps.png"><img src="assets/images/nps.png" alt="nps" style="max-width:100%;"></a></td>
+            <td><a target="_blank" rel="noopener noreferrer" href="assets/images/alert.png"><img src="assets/images/alert.png" alt="nps_with_numbers" style="max-width:100%;"></a></td>
+            <td><a target="_blank" rel="noopener noreferrer" href="assets/images/nps_with_numbers.png"><img src="assets/images/nps_with_numbers.png" alt="nps_with_numbers" style="max-width:100%;"></a></td>
+            </tr>
+            </tbody>
+            </table>
+    </p>
+                                </div>
+                            </section><!--//doc-section-->
+                            <section id="favorite-attribute-actions" class="doc-section">
+                                <h2 class="section-title">Favorite Attribute Actions</h2>
+                                    
+                                    <p>You can access favorite attributes of the Targeting Actions of type Favorite Attribute Action that you defined from the https://intelligence.relateddigital.com/#Target/TargetingAction/TAList/ section on the RMC panel via the mobile application as follows.
+                                    </p>
+                                    <div class="code-block">
+<pre><code class="language-java">@Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    
+    
+    //requestAction() or requestActionId()
+      try {
+            VisilabsActionRequest visilabsActionRequest = Visilabs.CallAPI().requestAction(VisilabsConstant.FavoriteAttributeAction);
+            visilabsActionRequest.executeAsyncAction(getVisilabsCallback());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        }</code></pre>
+                                    </div><!--//code-block-->
+
+<div class="code-block">
+<pre><code class="language-java">public VisilabsCallback getVisilabsCallback() {
+
+    return new VisilabsCallback() {
+        @Override
+        public void success(VisilabsResponse response) {
+            try {
+                FavsResponse favsResponse = new Gson().fromJson(response.getRawResponse(), FavsResponse.class);
+                String favBrands = favsResponse.getFavoriteAttributeAction()[0].getActiondata().getFavorites().getBrand()[0];
+                Log.i("Favs 1.Brand", favBrands);
+            } catch (Exception ex) {
+                Log.e("Error", ex.getMessage(), ex);
+            }
+        }
+
+        @Override
+        public void fail(VisilabsResponse response) {
+            Log.d("Error", response.getRawResponse());
+        }
+    };
+}</code></pre>
+                                    </div>
+                                    <p>You can also access favorite attributes of a particular Targeting Action by specifying the ID.</p>
+                                    <div style="text-align: center;">
+                                    <img src="assets/images/favorite.png" style="width: 100%;max-width: 700px;" /></div>
+                                    <div class="code-block">
+                                        <pre>
+<code class="language-java">Visilabs.callAPI().getFavoriteAttributeActions(actionId: 188) { (response) in
+    if let error = response.error {
+        print(error)
+    } else {
+        if let favoriteBrands = response.favorites[.brand] {
+            for brand in favoriteBrands {
+                print(brand)
+            }
+        }
+        if let favoriteCategories = response.favorites[.category] {
+            for category in favoriteCategories {
+                print(category)
+            }
+        }
+    }
+}</code>
+                                        </pre>
+                                    </div>
+                                    <p>favorites property of response object is a dictionary which has an enum as key and an array of Strings as value. The cases of VisilabsFavoriteAttribute enum are the followings:                                        
+                                    </p>
+                                    <div class="code-block">
+                                        <pre>
+<code class="language-java">public enum VisilabsFavoriteAttribute: String {
+    case ageGroup
+    case attr1
+    case attr2
+    case attr3
+    case attr4
+    case attr5
+    case attr6
+    case attr7
+    case attr8
+    case attr9
+    case attr10
+    case brand
+    case category
+    case color
+    case gender
+    case material
+    case title
+}</code>
+                                        </pre>
+                                    </div>
+                            </section><!--//doc-section-->
+                            <section id="story-actions" class="doc-section">
+                                <h2 class="section-title">Story Actions</h2>
+                                <p>Story actions allow you to add widgets similar to "Instagram Story" list view on your iOS devices. getStoryView method returns an instance of VisilabsStoryHomeView which is a subclass of UIView.
+                                    </p>
+<pre><code class="language-java">let storyView = Visilabs.callAPI().getStoryView()
+view.addSubview(storyHomeView)</code></pre>
+                                    <p>You can also access a story action by specifying the ID of the Targeting Action.</p>
+                                    
+<pre><code class="language-java">let storyView = Visilabs.callAPI().getStoryView(actionId: 67)
+view.addSubview(storyHomeView)</code></pre>
+                            </section>
+
+                            <section id="mail-subscription-form" class="doc-section">
+                                <h2 class="section-title">Mail Subscription Form</h2>
+                                <p>After form is created at RMC panel, likewise in-app message, existence of mail subscription form is controlled by after each customEvent call. It is shown as follows;
+                                    </p>
+                                    <div style="text-align: center;"><img src="assets/images/mailsubs.jpeg" style="width: 100%;max-width: 300px;"></div>
+                            </section>
+
+                            <section id="spin-to-win" class="doc-section">
+                                <h2 class="section-title">Spin To Win</h2>
+                                <p>After form is created at RMC panel, likewise in-app message, existence of spin to win is controlled by after each customEvent call. It is shown as follows;
+                                    </p>
+                                    <p>
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Spin to Win Full</td>
+                                                    <td>Spin to Win Half</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><img src="assets/images/spinfull.jpeg" style="max-width:100%;"/></td>
+                                                    <td><img src="assets/images/spinhalf.jpeg" style="max-width:100%;"/></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </p>
+                            </section>
+
+                            <section id="geofencing" class="doc-section">
+                                <h2 class="section-title">Geofencing</h2>
+                                <p>To enable location services in your application first of all you need to add the following keys to your Info.plist file.
+                                    </p>
+                                    <p>
+                                        <ul>
+                                            <li>NSLocationAlwaysAndWhenInUseUsageDescription</li>
+                                            <li>NSLocationWhenInUseUsageDescription</li>
+                                        </ul>
+                                    </p>
+                                    <p>An example implementation of these permissions as follows:</p>
+                                    <div class="code-block">
+                                        <pre>
+<code class="language-git"><key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+&lt;string&gt;We need access to your location for better user experience.&lt;string&gt;
+<key>NSLocationWhenInUseUsageDescription</key>
+&lt;string&gt;We need access to your location for better user experience.&lt;string&gt;</code>
+                                        </pre>
+                                    </div>
+                                    <p>
+                                        You also need to add the following keys under UIBackgroundModes in your Info.plist file to monitor regions, refresh region list and receive push notifications.
+                                    </p>
+                                    <div class="code-block">
+                                        <pre>
+<code class="language-git">&lt;array&gt;
+    &lt;string&gt;fetch&lt;string&gt;
+    &lt;string&gt;location&lt;string&gt;
+    &lt;string&gt;remote-notification&lt;string&gt;
+&lt;string&gt;</code>
+                                        </pre>
+                                    </div>
+                                    <p>
+                                        When initializing Visilabs SDK you need to set geofenceEnabled parameter of createAPI method to true. You may also change the maxGeofenceCount to a value lower than 20. Apple prevents any single application from monitoring more than 20 regions simultaneously. Visilabs can use all these slots.
+                                    </p>
+                                    <div class="code-block">
+                                        <pre>
+<code class="language-java">import VisilabsIOS
+func application(_ application: UIApplication, didFinishLaunchingWithOptions 
+    launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    Visilabs.createAPI(organizationId: "YOUR_ORGANIZATION_ID", profileId: "YOUR_PROFILE_ID"
+    , dataSource: "YOUR_DATASOURCE", inAppNotificationsEnabled: false, channel: "IOS"
+    , requestTimeoutInSeconds: 30, geofenceEnabled: true, maxGeofenceCount: 20)
+    return true
+}</code>
+                                        </pre>
+                                    </div>
+                            </section>
+
+                            <section id="recommendation" class="doc-section">
+                                <h2 class="section-title">Recommendation</h2>
+                                <p>Product recommendations are handled by the recommend method of SDK. You have to pass 3 mandatory arguments which are zoneId, productCode and completion to recommend method.
+                                    </p>
+                                    <p>
+                                        completion parameter is a closure expression which takes an VisilabsRecommendationResponse instance as input and returns nothing. The structure of VisilabsRecommendationResponse is shown below:
+                                    </p>
+                                    <div class="code-block">
+                                        <pre>
+<code class="language-java">public class VisilabsRecommendationResponse {
+    public var products: [VisilabsProduct]
+    public var error: VisilabsError?
+    
+    internal init(products: [VisilabsProduct], error: VisilabsError? = nil) {
+        self.products = products
+        self.error = error
+    }
+}</code>
+                                        </pre>
+                                    </div>
+                                    <p>VisilabsProduct class has the following properties:</p>
+                                    <p>
+                                        <table>
+                                            <thead>
+                                            <tr>
+                                            <th>Property</th>
+                                            <th>Type</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                            <td>code</td>
+                                            <td>String</td>
+                                            </tr>
+                                            <tr>
+                                            <td>title</td>
+                                            <td>String</td>
+                                            </tr>
+                                            <tr>
+                                            <td>img</td>
+                                            <td>String</td>
+                                            </tr>
+                                            <tr>
+                                            <td>dest_url</td>
+                                            <td>String</td>
+                                            </tr>
+                                            <tr>
+                                            <td>brand</td>
+                                            <td>String</td>
+                                            </tr>
+                                            <tr>
+                                            <td>price</td>
+                                            <td>Double</td>
+                                            </tr>
+                                            <tr>
+                                            <td>dprice</td>
+                                            <td>Double</td>
+                                            </tr>
+                                            <tr>
+                                            <td>cur</td>
+                                            <td>String</td>
+                                            </tr>
+                                            <tr>
+                                            <td>dcur</td>
+                                            <td>String</td>
+                                            </tr>
+                                            <tr>
+                                            <td>freeshipping</td>
+                                            <td>Bool</td>
+                                            </tr>
+                                            <tr>
+                                            <td>samedayshipping</td>
+                                            <td>Bool</td>
+                                            </tr>
+                                            <tr>
+                                            <td>rating</td>
+                                            <td>Int</td>
+                                            </tr>
+                                            <tr>
+                                            <td>comment</td>
+                                            <td>Int</td>
+                                            </tr>
+                                            <tr>
+                                            <td>discount</td>
+                                            <td>Double</td>
+                                            </tr>
+                                            <tr>
+                                            <td>attr1</td>
+                                            <td>String</td>
+                                            </tr>
+                                            <tr>
+                                            <td>attr2</td>
+                                            <td>String</td>
+                                            </tr>
+                                            <tr>
+                                            <td>attr3</td>
+                                            <td>String</td>
+                                            </tr>
+                                            <tr>
+                                            <td>attr4</td>
+                                            <td>String</td>
+                                            </tr>
+                                            <tr>
+                                            <td>attr5</td>
+                                            <td>String</td>
+                                            </tr>
+                                            </tbody>
+                                            </table>
+                                    </p>
+                                    <p>
+                                        If recommended products exist for given arguments in completion method you need to handle the array of products.
+                                    </p>
+                                    <div class="code-block">
+                                        <pre>
+<code class="language-java">Visilabs.callAPI().recommend(zoneID: "6", productCode: "pc", filters: []){ response in
+    if let error = response.error {
+        print(error)
+    }else{
+        print("Recommended Products")
+        for product in response.products{
+            print("product code: \(product.code) title: \(product.title)")
+        }
+    }
+}</code>
+                                        </pre>
+                                    </div>
+                                    <p>
+                                        You may also pass an array of filters to recommend method. For example the following implementation returns only the products which contains laptop in the title.
+                                    </p>
+                                    <div class="code-block">
+                                        <pre>
+<code class="language-java">var filters = [VisilabsRecommendationFilter]()
+    let filter = VisilabsRecommendationFilter(attribute: .title, filterType: .like, value: "laptop")
+    filters.append(filter)
+    Visilabs.callAPI().recommend(zoneID: "6", productCode: "pc", filters: filters){ response in
+        if let error = response.error{
+            print(error)
+        }else{
+            print("Recommended Products")
+            for product in response.products{
+                print("product code: \(product.code) title: \(product.title)")
+            }
+        }
+    }</code>
+                                        </pre>
+                                    </div>
+                            </section>
+
+                        </div><!--//content-inner-->
+                    </div><!--//doc-content-->
+                    <div class="doc-sidebar col-md-3 col-12 order-0 d-none d-md-flex">
+                        <div id="doc-nav" class="doc-nav">
+	                        
+	                            <nav id="doc-menu" class="nav doc-menu flex-column sticky">
+	                                <a class="nav-link scrollto" href="#inapp-messaging">In-App Messaging</a>
+	                                <a class="nav-link scrollto" href="#favorite-attribute-actions">Favorite Attribute Actions</a>
+                                    <a class="nav-link scrollto" href="#story-actions">Story Actions</a>
+	                                <a class="nav-link scrollto" href="#mail-subscription-form">Mail Subscription Form</a>
+	                                <a class="nav-link scrollto" href="#spin-to-win">Spin to Win</a>
+	                                <a class="nav-link scrollto" href="#geofencing">Geofencing</a>
+	                                <a class="nav-link scrollto" href="#recommendation">Recommendation</a>
+	                                <a class="nav-link other-page" href="/ios-vl-setup.html">iOS Visilabs Setup & Data Collection</a>
+	                            </nav><!--//doc-menu-->
+	                        
+                        </div>
+                    </div><!--//doc-sidebar-->
+                </div><!--//doc-body-->              
+            </div><!--//container-->
+        </div><!--//doc-wrapper-->
+        
+    </div><!--//page-wrapper-->
+    
+    <footer id="footer" class="footer text-center">
+        <div class="container">
+            <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+            <small class="copyright">Related Digital - All Rights Reserved</small>
+            
+        </div><!--//container-->
+    </footer><!--//footer-->
+    
+     
+    <!-- Main Javascript -->          
+    <script type="text/javascript" src="assets/plugins/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/prism/prism.js"></script>    
+    <script type="text/javascript" src="assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>      
+    <script type="text/javascript" src="assets/plugins/stickyfill/dist/stickyfill.min.js"></script>                                                             
+    <script type="text/javascript" src="assets/js/main.js"></script>
+    
+</body>
+</html> 
+

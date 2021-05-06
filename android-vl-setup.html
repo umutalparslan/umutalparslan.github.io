@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Android Visilabs Documentation</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">    
+    <link rel="shortcut icon" href="favicon.ico">  
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- FontAwesome JS -->
+    <script defer src="assets/fontawesome/js/all.js"></script>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">   
+    <!-- Plugins CSS -->    
+    <link rel="stylesheet" href="assets/plugins/prism/prism.css">
+    <link rel="stylesheet" href="assets/plugins/elegant_font/css/style.css">  
+      
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
+    
+</head> 
+
+<body class="body-green">
+    <div class="page-wrapper">
+        <!-- ******Header****** -->
+        <header id="header" class="header">
+            <div class="container">
+                <div class="branding">
+                    <h1 class="logo">
+                        <a href="index.html">
+                            <img aria-hidden="true" src="assets/images/android-logo.svg" width="25"/>
+                            <span class="text-bold" style="vertical-align: middle;">Android Visilabs Setup & Data Collection</span>
+                        </a>
+                    </h1>
+                    
+                </div><!--//branding-->
+                
+            </div><!--//container-->
+        </header><!--//header-->
+        <div class="doc-wrapper">
+            <div class="container">
+                
+                <div class="doc-body row">
+                    <div class="doc-content col-md-9 col-12 order-1">
+                        <div class="content-inner">
+                            <section id="installation" class="doc-section">
+                                <h2 class="section-title">Installation</h2>
+                                <div class="section-block">
+                                    <p>Add maven jitpack repository to your project/build.gradle file
+                                    </p>
+                                    <pre><code class="language-java">allprojects {
+    repositories {
+    ...
+    maven { url 'https://jitpack.io' }
+    }
+}</code></pre>
+<p>Add Visilabs to the dependencies in app/build.gradle.</p>
+<pre><code class="language-java">implementation 'com.github.relateddigital:visilabs-android:5.5.7'</code></pre>
+<p>This version uses AndroidX</p>
+                                </div>
+                            </section><!--//doc-section-->
+                            <section id="initializing" class="doc-section">
+                                <h2 class="section-title">Initializing</h2>
+                                <div class="section-block">
+                                <div class="callout-block callout-info">
+                                    <div class="icon-holder">
+                                        <i class="fas fa-info-circle"></i>
+                                    </div><!--//icon-holder-->
+                                    <div class="content">
+                                        <strong>Import com.visilabs.android.* package to all files for which you will be using the SDK.</strong>
+                                    </div>
+                                </div>
+                                <h4>There are 4 different usages of the SDK:</h4>
+                                <ol><li>Sending data to RMC</li>
+                                    <li>Sending data to RMC and Receiving Recommendations</li>
+                                    <li>Sending data to RMC, Receiving Recommendations and In-app messages</li>
+                                    <li>Sending data to RMC, Receiving Recommendations, In-app messages and Running Geofence Module</li>
+                                </ol>
+                            </div>
+                            <div id="sending-data-rmc" class="section-block">
+                                <h3 class="block-title">Sending data to RMC</h3>
+                                <p>Use the following method to only send data to RMC: </p>
+                                <pre><code class="language-java">Visilabs.CreateAPI("OrganizationID", "SiteID", "http://lgr.visilabs.net", "DataSource", "http://rt.visilabs.net" , "Android" , getApplicationContext(), requestTimeout, "http://s.visilabs.net/json");</code></pre>
+                            </div>
+                            <div id="sending-data-reco" class="section-block">
+                                <h3 class="block-title">Sending Data to RMC and Receiving Recommendations</h3>
+                                <p>Use the following method to send data to RMC and to receive Recommendations:</p>
+                                <pre><code class="language-java">Visilabs.CreateAPI("OrganizationID", "SiteID", "http://lgr.visilabs.net", "DataSource", "http://rt.visilabs.net" , "Android" , getApplicationContext(), requestTimeout, "http://s.visilabs.net/json");</code></pre>
+                            </div>
+                            <div id="sending-data-inapp" class="section-block">
+                                <h3 class="block-title">Sending Data to RMC, Receiving Recommendations and In-App Messages</h3>
+                                <p>Use the following method to send data to RMC, to receive Recommendations and In-App messages:</p>
+                                <pre><code class="language-java">Visilabs.CreateAPI("OrganizationID", "SiteID", "http://lgr.visilabs.net", "DataSource", "http://rt.visilabs.net" , "Android" , getApplicationContext(), "http://s.visilabs.net/json", "http://s.visilabs.net/actjson", requestTimeout);</code></pre>
+                            </div>
+                            <div id="sending-data-all" class="section-block">
+                                <h3 class="block-title">Sending Data to RMC, Receiving Recommendations and In-App Messages and Running Geofence Module</h3>
+                                <p>Use the following method to send data to RMC, to receive Recommendations and In-App messages and to run Geofence Module. If you are using this overload of CreateAPI method, define parameters in AndroidManifest.xml file.</p>
+                                <pre><code class="language-java">Visilabs.CreateAPI(getApplicationContext());
+&lt;meta-data android:name="VisilabsOrganizationID" android:value="VisilabsOrganizationID" /&gt;
+&lt;meta-data android:name="VisilabsSiteID" android:value="VisilabsSiteID" /&gt;
+&lt;meta-data android:name="VisilabsSegmentURL" android:value="http://lgr.visilabs.net" /&gt;
+&lt;meta-data android:name="VisilabsDataSource" android:value="VisilabsDataSource" /&gt;
+&lt;meta-data android:name="VisilabsRealTimeURL" android:value="http://rt.visilabs.net" /&gt;
+&lt;meta-data android:name="VisilabsChannel" android:value="Android" /&gt;
+&lt;meta-data android:name="VisilabsGeofenceURL" android:value="http://s.visilabs.net/geojson" /&gt;
+&lt;meta-data android:name="VisilabsGeofenceEnabled" android:value="true" /&gt;
+                                
+&lt;!-- Parameters below are optional --!&gt;
+                                
+&lt;meta-data android:name="VisilabsRequestTimeoutInSeconds" android:value="30" /&gt;
+&lt;meta-data android:name="VisilabsRESTURL" android:value="VisilabsRESTURL" /&gt;
+&lt;meta-data android:name="VisilabsEncryptedDataSource" android:value="VisilabsEncryptedDataSource" /&gt;
+&lt;meta-data android:name="VisilabsTargetURL" android:value="http://s.visilabs.net/json" /&gt;
+&lt;meta-data android:name="VisilabsActionURL" android:value="http://s.visilabs.net/actjson" /&gt;</code></pre>
+                                <p>In order to run Geofence module define the following permissions, service and receiver in AndroidManifest.xml file: </p>
+                                <pre><code class="language-java">&lt;uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/&gt;
+&lt;uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /&gt;
+&lt;uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" /&gt;
+
+&lt;service android:name="com.visilabs.android.gps.geofence.GeofenceTransitionsIntentService"
+    android:enabled="true"
+    android:permission="android.permission.BIND_JOB_SERVICE" /&gt;
+
+&lt;service
+    android:name="com.visilabs.android.gps.geofence.GeofenceMonitor"
+    android:enabled="true"
+    android:exported="true"/&gt;
+
+&lt;receiver android:name="com.visilabs.android.gps.geofence.GeofenceTransitionsReceiver"
+    android:enabled="true" android:exported="true"&gt;
+    &lt;intent-filter&gt;
+    &lt;action android:name="com.visilabs.android.gps.geofence.ACTION_RECEIVE_GEOFENCE" /&gt;
+    &lt;/intent-filter&gt;
+&lt;/receiver&gt;
+
+&lt;receiver android:name="com.visilabs.android.gps.geofence.VisilabsAlarm" android:exported="false"/&gt;
+
+&lt;receiver
+    android:name="com.visilabs.android.gps.geofence.GeofenceBroadcastReceiver"
+    android:enabled="true"
+    android:exported="true"/&gt;</code></pre>
+                            </div>
+                            <div class="callout-block callout-info">
+                                <div class="icon-holder">
+                                    <i class="fas fa-info-circle"></i>
+                                </div><!--//icon-holder-->
+                                <div class="content">
+                                    <strong>To learn the <b>OrganizationID</b>, <b>SiteID</b> and <b>Datasource</b> Parameters, login to RMC GUI and view your profile details or send a request to RMC support.</strong>
+                                </div>
+                            </div>
+                            </section><!--//doc-section-->
+                            <section id="data-collection" class="doc-section">
+                                <h2 class="section-title">Data Collection</h2>
+                                <p>Visilabs uses events to collect data from Android apps. The developer must follow the methods provided by the SDK. customEvent is a general method for tracking user activities. customEvent takes 2 parameters: pageName and parameters.
+
+                                    pageName : Your app's current page. If your activity is not related to a page view, you must pass a value for the action taken. If you pass an empty string, the event is considered invalid and canceled.
+                                    
+                                    parameters : A collection of key-values related to the event. Posting blank is acceptable if your event does not have additional data other than the page name.
+                                    
+                                    In the SDK, besides customEvent, there are 2 other methods for collecting data: login and sign-up. As with the CustomEvent method, the sign-in and sign-up methods take a required and an optional parameter. The first parameter is exVisitorId, which uniquely identifies the user and cannot be blank. The second parameter, the parameters are optional.
+                                    
+                                    ExVisitorId can be keyID or E-Mail depending on your structure.</p>
+                                    <div id="signup" class="section-block">
+                                        <h3 class="block-title">Signup</h3>
+                                        <pre><code class="language-java">Visilabs.CallAPI().signUp(exVisitorId: "userId/Email")</code></pre>
+                                        <p>You can also pass additional information to optional parameter properties when the user registers. The following example shows calling the signUp method with properties containing the parameters OM.sys.TokenID and OM.sys.AppID. OM.sys.TokenID and OM.sys.AppID are required to send push notifications, and the OM.sys.AppID parameter can be obtained from the RMC web panel.</p>
+                                        <pre>
+<code class="language-java">HashMap&lt;String, String&gt; parameters = new HashMap<>();
+    parameters.put("OM.sys.TokenID", token);
+    parameters.put("OM.sys.AppID", AppAlias); //From RMC Panel
+    Visilabs.callAPI().signUp(exVisitorId: "userId/Email", parameters)</code>
+                                        </pre>
+
+                                    </div>
+                                    <div id="login" class="section-block">
+                                        <h3 class="block-title">Login</h3>
+                                        <p>Like the Signup method, the login method can be called with or without optional parameter properties.</p>
+                                        <pre><code class="language-java">Visilabs.callAPI().login(exVisitorId: "userId/Email")
+HashMap&lt;String, String&gt; parameters = new HashMap<>();
+parameters.put("OM.sys.TokenID", token);
+parameters.put("OM.sys.AppID", AppAlias); //From RMC Panel
+Visilabs.callAPI().login(exVisitorId: "userId/Email", parameters)</code></pre>
+<p>You can also add user segment parameters to the parameters.</p>
+                                        <pre><code class="language-java">HashMap&lt;String, String&gt; parameters = new HashMap<>();
+parameters.put("OM.vseg1", "seg1val") // Visitor Segment 1
+parameters.put("OM.vseg2", "seg2val") // Visitor Segment 2
+parameters.put("OM.vseg3", "seg3val") // Visitor Segment 3
+parameters.put("OM.vseg4", "seg4val") // Visitor Segment 4
+parameters.put("OM.vseg5", "seg5val") // Visitor Segment 5
+parameters.put("OM.bd", "1995-09-02") // Doğum Günü
+parameters.put("OM.gn", "m") // Cinsiyet
+parameters.put("OM.loc", "Artvin") // Lokasyon
+Visilabs.callAPI().login(exVisitorId: "userId", parameters)</code></pre>
+
+                                    </div>
+                                    <div id="page-view" class="section-block">
+                                        <h3 class="block-title">Page View</h3>
+                                        <p>
+                                            To save the page name the visitor is currently viewing, use the customEvent method below. You can add extra parameters to the parameters or leave them blank.
+                                        </p>
+                                        <pre><code class="language-java">HashMap&lt;String, String&gt; parameters = new HashMap<>();
+Visilabs.callAPI().customEvent("Frequently Asked Questions", parameters)</code></pre>
+
+                                    </div>
+                                    <div id="product-view" class="section-block">
+                                        <h3 class="block-title">Product View</h3>
+                                        <p>
+                                            Use the customEvent method below when the user views a product in the mobile app.
+                                        </p>
+                                        <pre><code class="language-java">HashMap&lt;String, String&gt; parameters= new HashMap&lt;String, String&gt;();
+parameters.put("OM.pv","Product Code");
+parameters.put("OM.pn","Product Name");
+parameters.put("OM.ppr","Product Price");
+parameters.put("OM.pv.1","Product Brand");
+parameters.put("OM.inv","Number of items in stock");
+
+Visilabs.CallAPI().customEvent("Product View", parameters);</code></pre>
+
+                                    </div>
+                                    <div id="add-to-cart" class="section-block">
+                                        <h3 class="block-title">Add to Cart</h3>
+                                        <p>
+                                            When the user adds or removes a product to the cart, use the customEvent method below.
+                                        </p>
+                                        <pre><code class="language-java">HashMap&lt;String, String&gt; parameters= new HashMap&lt;String, String&gt;();
+parameters.put("OM.pbid","Basket ID");
+parameters.put("OM.pb","Product1 Code;Product2 Code");
+parameters.put("OM.pu","Product1 Quantity;Product2 Quantity");
+parameters.put("OM.ppr","Product1 Price*Product1 Quantity;Product2 Price*Product2 Quantity");
+
+Visilabs.CallAPI().customEvent("Cart", parameters);</code></pre>
+
+                                    </div>
+                                    <div id="product-purchase" class="section-block">
+                                        <h3 class="block-title">Product Purchase</h3>
+                                        <p>
+                                            Use the customEvent method below when the user purchases one or more items.
+                                        </p>
+                                        <pre><code class="language-java">HashMap&lt;String, String&gt; parameters= new HashMap&lt;String, String&gt;();
+parameters.put("OM.tid","Transaction ID");
+parameters.put("OM.pp","Product1 Code;Product2 Code");
+parameters.put("OM.pu","Product1 Quantity;Product2 Quantity");
+parameters.put("OM.ppr","Product1 Price*Product1 Quantity;Product2 Price*Product2 Quantity");
+
+Visilabs.CallAPI().customEvent("Product Purchase", parameters);</code></pre>
+
+                                    </div>
+                                    <div id="category-view" class="section-block">
+                                        <h3 class="block-title">Category View</h3>
+                                        <p>
+                                            When the user views a category list page, use the customEvent method below.
+                                        </p>
+                                        <pre><code class="language-java">HashMap&lt;String, String&gt; parameters= new HashMap&lt;String, String&gt;();
+parameters.put("OM.clist","Category Code/Category ID");
+
+Visilabs.CallAPI().customEvent("Category View", parameters);</code></pre>
+
+                                    </div>
+                                    <div id="in-app-search" class="section-block">
+                                        <h3 class="block-title">In App Search</h3>
+                                        <p>
+                                            If the mobile app has a search function, use the customEvent method below.
+                                        </p>
+                                        <pre><code class="language-java">HashMap&lt;String, String&gt; parameters= new HashMap&lt;String, String&gt;();
+parameters.put("OM.OSS","Search Keyword");
+parameters.put("OM.OSSR","Number of search results");
+
+Visilabs.CallAPI().customEvent("In App Search", parameters);</code></pre>
+
+                                    </div>
+                                    <div id="banner-click" class="section-block">
+                                        <h3 class="block-title">Banner Click</h3>
+                                        <p>
+                                            You can track banner click data using the customEvent method below.
+                                        </p>
+                                        <pre><code class="language-java">HashMap&lt;String, String&gt; parameters= new HashMap&lt;String, String&gt;();
+parameters.put("OM.OSB","Banner Name/Banner Code");
+
+Visilabs.CallAPI().customEvent("Banner Click", parameters);
+                                            </code></pre>
+
+                                    </div>
+                                    <div id="add-to-favorites" class="section-block">
+                                        <h3 class="block-title">Add to Favorites</h3>
+                                        <p>
+                                            When a user adds a product to their favorites, use the customEvent method below.
+                                        </p>
+                                        <pre><code class="language-java">HashMap&lt;String, String&gt; parameters= new HashMap&lt;String, String&gt;();
+parameters.put("OM.pf","Product Code");
+parameters.put("OM.pfu","1"); 
+parameters.put("OM.ppr","Product Price");
+
+Visilabs.CallAPI().customEvent("Add To Favorites", parameters);</code></pre>
+
+                                    </div>
+                                    <div id="remove-from-favorites" class="section-block">
+                                        <h3 class="block-title">Remove From Favorites</h3>
+                                        <p>
+                                            When the user removes a product from their favorites, use the customEvent method below.
+                                        </p>
+                                        <pre><code class="language-java">HashMap&lt;String, String&gt; parameters= new HashMap&lt;String, String&gt;();
+parameters.put("OM.pf","Product Code");
+parameters.put("OM.pfu","-1"); 
+parameters.put("OM.ppr","Product Price");
+
+Visilabs.CallAPI().customEvent("Add To Favorites", parameters);</code></pre>
+
+                                    </div>
+                                    <div id="send-campaign-parameters" class="section-block">
+                                        <h3 class="block-title">Send Campaign Parameters</h3>
+                                        <p>
+                                            After launching the application by clicking a push message, use the customEvent method below.
+                                        </p>
+                                        <pre><code class="language-java">HashMap&lt;String, String&gt; properties = new HashMap<>();
+properties.put("utm_campaign","euromsg campaign");
+properties.put("utm_source","euromsg");
+properties.put("utm_medium","push");
+Visilabs.CallAPI().sendCampaignParameters(properties);</code></pre>
+
+                                    </div>
+                                    <div id="push-message-token-registration" class="section-block">
+                                        <h3 class="block-title">Push Message Token Registration</h3>
+                                        <p>
+                                            Visilabs needs a token to send users push messages. The token value generated by Firebase / Huawei will be the value of key OM.sys.TokenID. The value of OM.sys.AppID can be obtained by the RMC administration panel. Follow the link https://intelligence.relateddigital.com/a02/index#/Push/AppList and select the relevant push application. Application App Alias value corresponds to OM.sys.AppID. If you run into problems, please contact the RMC support team.
+<br />
+You can send the following parameters in the events given above. Examples of each are shown in the Login and Signup steps.
+                                        </p>
+                                        <pre><code class="language-java">parameters.put("OM.sys.TokenID", token);
+parameters.put("OM.sys.AppID", AppAlias);</code></pre>
+<div style="text-align: center;"><img src="assets/images/appidAndroid.png" style="width: 100%;max-width: 700px;" /></div>
+                                    </div>
+                            </section>
+                        </div><!--//content-inner-->
+                    </div><!--//doc-content-->
+                    <div class="doc-sidebar col-md-3 col-12 order-0 d-none d-md-flex">
+                        <div id="doc-nav" class="doc-nav">
+	                        
+	                            <nav id="doc-menu" class="nav doc-menu flex-column sticky">
+	                                <a class="nav-link scrollto" href="#installation">Installation</a>
+	                                <a class="nav-link scrollto" href="#initializing">Initializing</a>
+                                    <nav class="doc-sub-menu nav flex-column">
+                                        <a class="nav-link scrollto" href="#sending-data-rmc">Sending data to RMC</a>
+                                        <a class="nav-link scrollto" href="#sending-data-reco">Sending Data to RMC and Receiving Recommendations</a>
+                                        <a class="nav-link scrollto" href="#sending-data-inapp">Sending Data to RMC, Receiving Recommendations and In-App Messages</a>
+                                        <a class="nav-link scrollto" href="#sending-data-all">Sending Data to RMC, Receiving Recommendations and In-App Messages and Running Geofence Module</a>
+                                    </nav><!--//nav-->
+                                    <a class="nav-link scrollto" href="#data-collection">Data Collection</a>
+                                    <nav class="doc-sub-menu nav flex-column">
+                                        <a class="nav-link scrollto" href="#signup">Signup</a>
+                                        <a class="nav-link scrollto" href="#login">Login</a>
+                                        <a class="nav-link scrollto" href="#page-view">Page View</a>
+                                        <a class="nav-link scrollto" href="#product-view">Product View</a>
+                                        <a class="nav-link scrollto" href="#add-to-cart">Add to Cart</a>
+                                        <a class="nav-link scrollto" href="#product-purchase">Product Purchase</a>
+                                        <a class="nav-link scrollto" href="#category-view">Category View</a>
+                                        <a class="nav-link scrollto" href="#in-app-search">In App Search</a>
+                                        <a class="nav-link scrollto" href="#banner-click">Banner Click</a>
+                                        <a class="nav-link scrollto" href="#add-to-favorites">Add to Favorites</a>
+                                        <a class="nav-link scrollto" href="#remove-from-favorites">Remove From Favorites</a>
+                                        <a class="nav-link scrollto" href="#send-campaign-parameters">Send Campaign Parameters</a>
+                                        <a class="nav-link scrollto" href="#push-message-token-registration">Push Message Token Registration</a>
+                                    </nav><!--//nav-->
+	                                <a class="nav-link other-page" href="/android-vl-target.html">Android Visilabs Targeting Actions</a>
+	                        
+                        </div>
+                    </div><!--//doc-sidebar-->
+                </div><!--//doc-body-->              
+            </div><!--//container-->
+        </div><!--//doc-wrapper-->
+        
+    </div><!--//page-wrapper-->
+    
+    <footer id="footer" class="footer text-center">
+        <div class="container">
+            <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+            <small class="copyright">Related Digital - All Rights Reserved</small>
+            
+        </div><!--//container-->
+    </footer><!--//footer-->
+    
+     
+    <!-- Main Javascript -->          
+    <script type="text/javascript" src="assets/plugins/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/prism/prism.js"></script>    
+    <script type="text/javascript" src="assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>      
+    <script type="text/javascript" src="assets/plugins/stickyfill/dist/stickyfill.min.js"></script>                                                             
+    <script type="text/javascript" src="assets/js/main.js"></script>
+    
+</body>
+</html> 
+
