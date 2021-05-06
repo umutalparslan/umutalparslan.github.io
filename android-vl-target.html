@@ -54,7 +54,7 @@
                                     <p>Use the following method to show in-app messages and initialize the RMC:</p>
                                     <pre><code class="language-java">Visilabs.CreateAPI("OrganizationID", "SiteID", "http://lgr.visilabs.net", "DataSource", "http://rt.visilabs.net" , "Android" , getApplicationContext(), "http://s.visilabs.net/json", "http://s.visilabs.net/actjson", requestTimeout);</code></pre>
                                     <p>Add the required getActivity() parameter to all customEvent() calls:</p>
-                                    <pre><code class="language-java">HashMap<String,String> parameters = new HashMap<String, String>();
+                                    <pre><code class="language-java">HashMap&lt;String,String&gt; parameters = new HashMap&lt;String, String&gt;();
 parameters.put("OM.exVisitorID", "test@visilabs.com");
 parameters.put("OM.sys.AppID", "visilabs"); //
 
@@ -144,79 +144,80 @@ Visilabs.CallAPI().customEvent("android-visilab", parameters, getActivity());</c
         }
     };
 }</code></pre>
-                                    </div>
-                                    <p>You can also access favorite attributes of a particular Targeting Action by specifying the ID.</p>
-                                    <div style="text-align: center;">
-                                    <img src="assets/images/favorite.png" style="width: 100%;max-width: 700px;" /></div>
-                                    <div class="code-block">
-                                        <pre>
-<code class="language-java">Visilabs.callAPI().getFavoriteAttributeActions(actionId: 188) { (response) in
-    if let error = response.error {
-        print(error)
-    } else {
-        if let favoriteBrands = response.favorites[.brand] {
-            for brand in favoriteBrands {
-                print(brand)
+
+<p>or</p>
+<pre><code class="language-java">private VisilabsFavsRequestCallback getVisilabsCallback() {
+    return new VisilabsFavsRequestCallback() {
+        @Override
+        public void success(FavsResponse message, String url) {
+            Log.i(LOG_TAG, "Success Request : " + url);
+            //Do your work here by using message, e.g.
+            /*
+            List&lt;FavoriteAttributeAction&gt; favsActions = message.getFavoriteAttributeAction();
+            for (int i = 0; i &lt; favsActions.size() ; i++) {
+                String actionType = favsActions.get(i).getActiontype();
+                Log.i(LOG_TAG, "action type " + i+1 + " : " + actionType);
+                Actiondata  actionData = favsActions.get(i).getActiondata();
+                for (int j = 0; j &lt; favsActions.size() ; j++) {
+                    String[] attributes = actionData.getAttributes();
+                    Favorites favorites = actionData.getFavorites();
+                    //goes on...
+                }
             }
+            */
         }
-        if let favoriteCategories = response.favorites[.category] {
-            for category in favoriteCategories {
-                print(category)
-            }
+        @Override
+        public void fail(Throwable t, String url) {
+            Log.e(LOG_TAG, "Fail Request : " + url);
+            Log.e(LOG_TAG, "Fail Request Message : " + t.getMessage());
         }
-    }
-}</code>
-                                        </pre>
+    };
+}</code></pre>
                                     </div>
-                                    <p>favorites property of response object is a dictionary which has an enum as key and an array of Strings as value. The cases of VisilabsFavoriteAttribute enum are the followings:                                        
-                                    </p>
-                                    <div class="code-block">
-                                        <pre>
-<code class="language-java">public enum VisilabsFavoriteAttribute: String {
-    case ageGroup
-    case attr1
-    case attr2
-    case attr3
-    case attr4
-    case attr5
-    case attr6
-    case attr7
-    case attr8
-    case attr9
-    case attr10
-    case brand
-    case category
-    case color
-    case gender
-    case material
-    case title
-}</code>
-                                        </pre>
-                                    </div>
+                                    
                             </section><!--//doc-section-->
                             <section id="story-actions" class="doc-section">
                                 <h2 class="section-title">Story Actions</h2>
-                                <p>Story actions allow you to add widgets similar to "Instagram Story" list view on your iOS devices. getStoryView method returns an instance of VisilabsStoryHomeView which is a subclass of UIView.
+                                <p>Place the following VisilabsRecyclerView the desired section of the layout for the implementation of both actions.
                                     </p>
-<pre><code class="language-java">let storyView = Visilabs.callAPI().getStoryView()
-view.addSubview(storyHomeView)</code></pre>
-                                    <p>You can also access a story action by specifying the ID of the Targeting Action.</p>
+<pre><code class="language-java">&lt;com.visilabs.story.VisilabsRecyclerView
+    android:id="@+id/vrv_story"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/></code></pre>
+                                    <p>After defining the VisilabsRecyclerView in your class, define the StoryItemClickListener and define the orientation or action you want to do when clicking each story. Toast Message is shown here for an example.
+
+                                        Then call the VisilabsRecyclerView's setStoryAction method and add the storyItemClickListener object to the method.</p>
                                     
-<pre><code class="language-java">let storyView = Visilabs.callAPI().getStoryView(actionId: 67)
-view.addSubview(storyHomeView)</code></pre>
+<pre><code class="language-java">VisilabsRecyclerView visilabsRecyclerView = findViewById(R.id.vrv_story);
+
+    StoryItemClickListener storyItemClickListener = new StoryItemClickListener() {
+         @Override
+         public void storyItemClicked(String storyLink) {
+             Toast.makeText(getApplicationContext(), storyLink, Toast.LENGTH_LONG).show();
+         }
+     };
+
+    visilabsRecyclerView.setStoryAction(getApplicationContext(), storyItemClickListener);
+
+</code></pre>
+<p>You can also set it with Story Action Id.</p>
+<pre><code class="language-java">visilabsRecyclerView.setStoryActionId(getApplicationContext(), "250", storyItemClickListener);</code></pre>
+<p>It will appear in your application as long as there is an active story looking banner or story on the panel.</p>
                             </section>
 
                             <section id="mail-subscription-form" class="doc-section">
                                 <h2 class="section-title">Mail Subscription Form</h2>
-                                <p>After form is created at RMC panel, likewise in-app message, existence of mail subscription form is controlled by after each customEvent call. It is shown as follows;
+                                <p>After form is created at RMC panel, likewise in-app message, existence of mail subscription form is controlled by after each customEvent call. It is shown as follows. You need to call overload, which takes Activity in the customEvent parameter. Sample code and visual;
                                     </p>
-                                    <div style="text-align: center;"><img src="assets/images/mailsubs.jpeg" style="width: 100%;max-width: 300px;"></div>
+                                    <pre><code class="language-java">customEvent(String pageName, HashMap&lt;String, String> properties, Activity parent)</code></pre>
+                                    <div style="text-align: center;"><img src="assets/images/mailsubs-android.png" style="width: 100%;max-width: 300px;"></div>
                             </section>
 
                             <section id="spin-to-win" class="doc-section">
                                 <h2 class="section-title">Spin To Win</h2>
-                                <p>After form is created at RMC panel, likewise in-app message, existence of spin to win is controlled by after each customEvent call. It is shown as follows;
+                                <p>After form is created at RMC panel, likewise in-app message, existence of spin to win is controlled by after each customEvent call. It is shown as follows. You need to call overload, which takes Activity in the customEvent parameter. Sample code and visual;
                                     </p>
+                                    <pre><code class="language-java">customEvent(String pageName, HashMap<String, String> properties, Activity parent)</code></pre>
                                     <p>
                                         <table>
                                             <tbody>
@@ -233,198 +234,107 @@ view.addSubview(storyHomeView)</code></pre>
                                     </p>
                             </section>
 
-                            <section id="geofencing" class="doc-section">
-                                <h2 class="section-title">Geofencing</h2>
-                                <p>To enable location services in your application first of all you need to add the following keys to your Info.plist file.
-                                    </p>
-                                    <p>
-                                        <ul>
-                                            <li>NSLocationAlwaysAndWhenInUseUsageDescription</li>
-                                            <li>NSLocationWhenInUseUsageDescription</li>
-                                        </ul>
-                                    </p>
-                                    <p>An example implementation of these permissions as follows:</p>
-                                    <div class="code-block">
-                                        <pre>
-<code class="language-git"><key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-&lt;string&gt;We need access to your location for better user experience.&lt;string&gt;
-<key>NSLocationWhenInUseUsageDescription</key>
-&lt;string&gt;We need access to your location for better user experience.&lt;string&gt;</code>
-                                        </pre>
-                                    </div>
-                                    <p>
-                                        You also need to add the following keys under UIBackgroundModes in your Info.plist file to monitor regions, refresh region list and receive push notifications.
-                                    </p>
-                                    <div class="code-block">
-                                        <pre>
-<code class="language-git">&lt;array&gt;
-    &lt;string&gt;fetch&lt;string&gt;
-    &lt;string&gt;location&lt;string&gt;
-    &lt;string&gt;remote-notification&lt;string&gt;
-&lt;string&gt;</code>
-                                        </pre>
-                                    </div>
-                                    <p>
-                                        When initializing Visilabs SDK you need to set geofenceEnabled parameter of createAPI method to true. You may also change the maxGeofenceCount to a value lower than 20. Apple prevents any single application from monitoring more than 20 regions simultaneously. Visilabs can use all these slots.
-                                    </p>
-                                    <div class="code-block">
-                                        <pre>
-<code class="language-java">import VisilabsIOS
-func application(_ application: UIApplication, didFinishLaunchingWithOptions 
-    launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-    Visilabs.createAPI(organizationId: "YOUR_ORGANIZATION_ID", profileId: "YOUR_PROFILE_ID"
-    , dataSource: "YOUR_DATASOURCE", inAppNotificationsEnabled: false, channel: "IOS"
-    , requestTimeoutInSeconds: 30, geofenceEnabled: true, maxGeofenceCount: 20)
-    return true
-}</code>
-                                        </pre>
-                                    </div>
-                            </section>
-
                             <section id="recommendation" class="doc-section">
                                 <h2 class="section-title">Recommendation</h2>
-                                <p>Product recommendations are handled by the recommend method of SDK. You have to pass 3 mandatory arguments which are zoneId, productCode and completion to recommend method.
+                                <p>You can find the documents required to show personalized product recommendations in your Android mobile application in this section.
                                     </p>
-                                    <p>
-                                        completion parameter is a closure expression which takes an VisilabsRecommendationResponse instance as input and returns nothing. The structure of VisilabsRecommendationResponse is shown below:
-                                    </p>
-                                    <div class="code-block">
-                                        <pre>
-<code class="language-java">public class VisilabsRecommendationResponse {
-    public var products: [VisilabsProduct]
-    public var error: VisilabsError?
-    
-    internal init(products: [VisilabsProduct], error: VisilabsError? = nil) {
-        self.products = products
-        self.error = error
-    }
-}</code>
-                                        </pre>
+                                    <div class="callout-block callout-info">
+                                        <div class="icon-holder">
+                                            <i class="fas fa-info-circle"></i>
+                                        </div><!--//icon-holder-->
+                                        <div class="content">
+                                            <strong>Create a VisilabsTargetRequest object and call the executeAsync method of the VisilabsTargetRequest object.</strong>
+                                        </div>
                                     </div>
-                                    <p>VisilabsProduct class has the following properties:</p>
-                                    <p>
-                                        <table>
-                                            <thead>
-                                            <tr>
-                                            <th>Property</th>
-                                            <th>Type</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                            <td>code</td>
-                                            <td>String</td>
-                                            </tr>
-                                            <tr>
-                                            <td>title</td>
-                                            <td>String</td>
-                                            </tr>
-                                            <tr>
-                                            <td>img</td>
-                                            <td>String</td>
-                                            </tr>
-                                            <tr>
-                                            <td>dest_url</td>
-                                            <td>String</td>
-                                            </tr>
-                                            <tr>
-                                            <td>brand</td>
-                                            <td>String</td>
-                                            </tr>
-                                            <tr>
-                                            <td>price</td>
-                                            <td>Double</td>
-                                            </tr>
-                                            <tr>
-                                            <td>dprice</td>
-                                            <td>Double</td>
-                                            </tr>
-                                            <tr>
-                                            <td>cur</td>
-                                            <td>String</td>
-                                            </tr>
-                                            <tr>
-                                            <td>dcur</td>
-                                            <td>String</td>
-                                            </tr>
-                                            <tr>
-                                            <td>freeshipping</td>
-                                            <td>Bool</td>
-                                            </tr>
-                                            <tr>
-                                            <td>samedayshipping</td>
-                                            <td>Bool</td>
-                                            </tr>
-                                            <tr>
-                                            <td>rating</td>
-                                            <td>Int</td>
-                                            </tr>
-                                            <tr>
-                                            <td>comment</td>
-                                            <td>Int</td>
-                                            </tr>
-                                            <tr>
-                                            <td>discount</td>
-                                            <td>Double</td>
-                                            </tr>
-                                            <tr>
-                                            <td>attr1</td>
-                                            <td>String</td>
-                                            </tr>
-                                            <tr>
-                                            <td>attr2</td>
-                                            <td>String</td>
-                                            </tr>
-                                            <tr>
-                                            <td>attr3</td>
-                                            <td>String</td>
-                                            </tr>
-                                            <tr>
-                                            <td>attr4</td>
-                                            <td>String</td>
-                                            </tr>
-                                            <tr>
-                                            <td>attr5</td>
-                                            <td>String</td>
-                                            </tr>
-                                            </tbody>
-                                            </table>
-                                    </p>
-                                    <p>
-                                        If recommended products exist for given arguments in completion method you need to handle the array of products.
-                                    </p>
-                                    <div class="code-block">
-                                        <pre>
-<code class="language-java">Visilabs.callAPI().recommend(zoneID: "6", productCode: "pc", filters: []){ response in
-    if let error = response.error {
-        print(error)
-    }else{
-        print("Recommended Products")
-        for product in response.products{
-            print("product code: \(product.code) title: \(product.title)")
-        }
-    }
-}</code>
-                                        </pre>
+                                    <div class="callout-block callout-info">
+                                        <div class="icon-holder">
+                                            <i class="fas fa-info-circle"></i>
+                                        </div><!--//icon-holder-->
+                                        <div class="content">
+                                            <strong>ZoneID is different for each application, so contact RMC team for support. Suggestion widgets such as "Alternative Products" require the product code to be seen as a parameter.</strong>
+                                        </div>
                                     </div>
                                     <p>
-                                        You may also pass an array of filters to recommend method. For example the following implementation returns only the products which contains laptop in the title.
+                                        The specification of the callback function is as follows:
                                     </p>
                                     <div class="code-block">
                                         <pre>
-<code class="language-java">var filters = [VisilabsRecommendationFilter]()
-    let filter = VisilabsRecommendationFilter(attribute: .title, filterType: .like, value: "laptop")
-    filters.append(filter)
-    Visilabs.callAPI().recommend(zoneID: "6", productCode: "pc", filters: filters){ response in
-        if let error = response.error{
-            print(error)
-        }else{
-            print("Recommended Products")
-            for product in response.products{
-                print("product code: \(product.code) title: \(product.title)")
-            }
+<code class="language-java">VisilabsTargetRequest targetRequest = Visilabs.CallAPI().buildTargetRequest(zoneID, "productCode");
+    targetRequest.executeAsync(callback);</code>
+                                        </pre>
+                                    </div>
+                                    <p>There is also an overload buildTargetRequest method with which you can pass filters and additional parameters.</p>
+                                    <div class="code-block">
+<pre>
+<code class="language-java">List filters = new ArrayList&lt;VisilabsTargetFilter&gt;();
+
+    HashMap&lt;String,String&gt; properties = new HashMap&lt;String, String&gt;();
+    properties.put("OM.extra", "Extra Value");
+    VisilabsTargetFilter f = new VisilabsTargetFilter();
+    f.setAttribute("attr1");
+    f.setFilterType("0"); // There are 2 filter types: Include and Exclude. For Include pass "0", for Exclude pass "1".
+    f.setValue("value");
+    filters.add(f);
+    f = new VisilabsTargetFilter();
+    f.setAttribute("attr2");
+    f.setFilterType("1"); // There are 2 filter types: Include and Exclude. For Include pass "0", for Exclude pass "1".
+    f.setValue("value");
+    filters.add(f);
+    VisilabsTargetRequest targetRequest = Visilabs.CallAPI().buildTargetRequest(zoneID, "productCode", properties, filters);
+    targetRequest.executeAsync(callback);</code>
+</pre>
+                                    </div>
+                                    <p>
+                                        After the request is completed, the callback function is called depending on the success or failure of the request, so you need to code the callback functions according to your needs as shown below:
+                                    </p>
+                                    <div class="code-block">
+                                        <pre>
+<code class="language-java">
+    VisilabsTargetCallback callback = new VisilabsTargetCallback() {
+        @Override
+        public void success(VisilabsResponse response) {
+        try{
+        JSONArray array = response.getArray();
+        if(array != null) {
+        ArrayList&lt;Product&gt; recommendations = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; array.length(); i++) {
+        JSONObject obj = (JSONObject)array.get(i);
+        Product product = new Product();
+        product.setProductCode(obj.getString("code"));
+        product.setProductName(obj.getString("title"));
+        product.setMediumImageUrl(obj.getString("img"));
+        product.setProductURL(obj.getString("dest_url"));
+        product.setBrand(obj.getString("brand"));
+        product.setOriginalPrice(obj.getDouble("price"));
+        product.setDiscountedPrice(obj.getDouble("dprice"));
+        product.setCurrency(obj.getString("cur"));
+        product.setDiscountCurrency(obj.getString("dcur"));
+        product.setFreeShipping(obj.getBoolean("freeshipping")); 
+        product.setShippingOnSameDay
+        (obj.getBoolean("samedayshipping"));
+        product.setRating(obj.getInt("rating"));
+        product.setComment(obj.getInt("comment"));
+        product.setDiscountRate(obj.getDouble("discount")); 
+        product.setAttr1(obj.getString("attr1"));
+        product.setAttr2(obj.getString("attr2"));
+        product.setAttr3(obj.getString("attr3"));
+        product.setAttr4(obj.getString("attr4"));
+        product.setAttr5(obj.getString("attr5"));
+        recommendations.add(product);
+        } 
         }
-    }</code>
+        }catch (Exception ex){
+        showToast(ex.getMessage());
+        Log.e(LOG_TAG, ex.getMessage(), ex);
+        }
+        }
+        @Override
+        public void fail(VisilabsResponse response) {
+        showToast(response.getErrorMessage());
+        Log.d(LOG_TAG, rawResponse);
+        }
+        };
+</code>
                                         </pre>
                                     </div>
                             </section>
@@ -440,9 +350,8 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions
                                     <a class="nav-link scrollto" href="#story-actions">Story Actions</a>
 	                                <a class="nav-link scrollto" href="#mail-subscription-form">Mail Subscription Form</a>
 	                                <a class="nav-link scrollto" href="#spin-to-win">Spin to Win</a>
-	                                <a class="nav-link scrollto" href="#geofencing">Geofencing</a>
 	                                <a class="nav-link scrollto" href="#recommendation">Recommendation</a>
-	                                <a class="nav-link other-page" href="/ios-vl-setup.html">iOS Visilabs Setup & Data Collection</a>
+	                                <a class="nav-link other-page" href="/android-vl-setup.html">Android Visilabs Setup & Data Collection</a>
 	                            </nav><!--//doc-menu-->
 	                        
                         </div>
