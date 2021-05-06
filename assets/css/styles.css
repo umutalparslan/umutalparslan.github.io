@@ -1041,6 +1041,30 @@ select {
   background-color: green !important;
 }
 
+table td {
+  padding: 6px 13px;
+  border: 1px solid #3b434b;
+}
+
+table tr:nth-child(2n) {
+  background-color: #161b22;
+}
+
+table {
+  display: block;
+  width: 100%;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  max-width: 100%;
+  overflow: auto;
+}
+
+table th {
+  text-align: center;
+  padding: 6px 13px;
+  border: 1px solid #3b434b;
+}
 /*
 .affix-top {
   position: absolute;
