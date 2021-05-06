@@ -1029,16 +1029,16 @@ select {
   color: #8A40A7;
 }
 
-.nav-link.other-page {
-  color: #000;
-  border: 1px solid green;
-  border-radius: 10px;
+.doc-menu .nav-link.other-page {
+  color: #000 !important;
+  border: 1px solid green !important;
+  border-radius: 10px !important;
 }
 
-.nav-link.other-page:hover {
-  color: #fff;
-  border-radius: 10px;
-  background-color: green;
+.doc-menu .nav-link.other-page:hover {
+  color: #fff !important;
+  border-radius: 10px !important;
+  background-color: green !important;
 }
 
 /*
