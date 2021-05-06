@@ -60,6 +60,49 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions
     , requestTimeoutInSeconds: 30, geofenceEnabled: false, maxGeofenceCount: 20)
     return true
     }</code></pre>
+    <p>
+        The existence of a relevant in-app message for an event controlled by after each customEvent call. You can create and customize your in-app messages on https://intelligence.relateddigital.com/#Target/TargetingAction/TAList page of RMC administration panel.
+
+There are 9 types of in-app messages:
+    </p>
+    <p>
+        <table>
+            <thead>
+            <tr>
+            <th align="center">Pop-up - Image, Header, Text &amp; Button</th>
+            <th>Mini-icon&amp;text</th>
+            <th>Full Screen-image</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td align="center"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/relateddigital/visilabs-ios/blob/master/Screenshots/InAppNotification/full.png"><img src="https://raw.githubusercontent.com/relateddigital/visilabs-ios/raw/master/Screenshots/InAppNotification/full.png" alt="full" style="max-width:100%;"></a></td>
+            <td><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/relateddigital/visilabs-ios/blob/master/Screenshots/InAppNotification/mini.png"><img src="https://raw.githubusercontent.com/relateddigital/visilabs-ios/raw/master/Screenshots/InAppNotification/mini.png" alt="mini" style="max-width:100%;"></a></td>
+            <td><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/relateddigital/visilabs-ios/blob/master/Screenshots/InAppNotification/full_image.png"><img src="https://raw.githubusercontent.com/relateddigital/visilabs-ios/raw/master/Screenshots/InAppNotification/full_image.png" alt="full_image" style="max-width:100%;"></a></td>
+            </tr>
+            <tr>
+            <td align="center">Full Screen-image&amp;button</td>
+            <td>Pop-up - Image, Header, Text &amp; Button</td>
+            <td>Pop-up-Survey</td>
+            </tr>
+            <tr>
+            <td align="center"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/relateddigital/visilabs-ios/blob/master/Screenshots/InAppNotification/image_button.png"><img src="https://raw.githubusercontent.com/relateddigital/visilabs-ios/raw/master/Screenshots/InAppNotification/image_button.png" alt="image_button" style="max-width:100%;"></a></td>
+            <td><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/relateddigital/visilabs-ios/blob/master/Screenshots/InAppNotification/image_text_button.png"><img src="https://raw.githubusercontent.com/relateddigital/visilabs-ios/raw/master/Screenshots/InAppNotification/image_text_button.png" alt="image_text_button" style="max-width:100%;"></a></td>
+            <td><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/relateddigital/visilabs-ios/blob/master/Screenshots/InAppNotification/smile_rating.png"><img src="https://raw.githubusercontent.com/relateddigital/visilabs-ios/raw/master/Screenshots/InAppNotification/smile_rating.png" alt="smile_rating" style="max-width:100%;"></a></td>
+            </tr>
+            <tr>
+            <td align="center">Pop-up - NPS with Text &amp; Button</td>
+            <td>Native Alert &amp; Actionsheet</td>
+            <td>NPS with numbers</td>
+            </tr>
+            <tr>
+            <td align="center"><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/relateddigital/visilabs-ios/blob/master/Screenshots/InAppNotification/nps.png"><img src="https://raw.githubusercontent.com/relateddigital/visilabs-ios/raw/master/Screenshots/InAppNotification/nps.png" alt="nps" style="max-width:100%;"></a></td>
+            <td><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/relateddigital/visilabs-ios/blob/master/Screenshots/InAppNotification/alert.png"><img src="https://raw.githubusercontent.com/relateddigital/visilabs-ios/raw/master/Screenshots/InAppNotification/alert.png" alt="nps_with_numbers" style="max-width:100%;"></a></td>
+            <td><a target="_blank" rel="noopener noreferrer" href="https://raw.githubusercontent.com/relateddigital/visilabs-ios/blob/master/Screenshots/InAppNotification/nps_with_numbers.png"><img src="https://raw.githubusercontent.com/relateddigital/visilabs-ios/raw/master/Screenshots/InAppNotification/nps_with_numbers.png" alt="nps_with_numbers" style="max-width:100%;"></a></td>
+            </tr>
+            </tbody>
+            </table>
+    </p>
                                 </div>
                             </section><!--//doc-section-->
                             <section id="initializing" class="doc-section">
@@ -84,8 +127,8 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions
                                 <div id="initial-parameters"  class="section-block">
                                     <h3 class="block-title">Initial Parameters</h3>
                                     <ul class="ak-ul" data-indent-level="1"><li><p data-renderer-start-pos="857"><strong data-renderer-mark="true">Mandatory Parameters</strong></p><ul class="ak-ul" data-indent-level="2"><li><p data-renderer-start-pos="881"><strong data-renderer-mark="true">organizationId</strong>&nbsp;: The ID of your organization. The value of this parameter could be obtained by&nbsp;<a class="sc-itybZL iLAMzb" href="https://intelligence.relateddigital.com/#Management/UserManagement/Profiles" title="https://intelligence.relateddigital.com/#Management/UserManagement/Profiles" data-renderer-mark="true">https://intelligence.relateddigital.com/#Management/UserManagement/Profiles</a>&nbsp;and selecting relevant profile.</p></li><li><p data-renderer-start-pos="1087"><strong data-renderer-mark="true">profileId</strong>&nbsp;: The ID of the profile you want to integrate. The value of this parameter could be obtained by&nbsp;<a class="sc-itybZL iLAMzb" href="https://intelligence.relateddigital.com/#Management/UserManagement/Profiles" title="https://intelligence.relateddigital.com/#Management/UserManagement/Profiles" data-renderer-mark="true">https://intelligence.relateddigital.com/#Management/UserManagement/Profiles</a>&nbsp;and selecting relevant profile.</p></li><li><p data-renderer-start-pos="1304"><strong data-renderer-mark="true">dataSource</strong>&nbsp;: The data source of the profile you want to integrate. The value of this parameter could be obtained by&nbsp;<a class="sc-itybZL iLAMzb" href="https://intelligence.relateddigital.com/#Management/UserManagement/Profiles" title="https://intelligence.relateddigital.com/#Management/UserManagement/Profiles" data-renderer-mark="true">https://intelligence.relateddigital.com/#Management/UserManagement/Profiles</a>&nbsp;and selecting relevant profile.</p></li></ul></li><li><p data-renderer-start-pos="1533"><strong data-renderer-mark="true">Optional Parameters</strong></p><ul class="ak-ul" data-indent-level="2"><li><p data-renderer-start-pos="1556"><strong data-renderer-mark="true">inAppNotificationsEnabled</strong>&nbsp;: Default value is&nbsp;<strong data-renderer-mark="true">false</strong>. If you want to use in app notification feature of&nbsp;<strong data-renderer-mark="true">Visilabs</strong>&nbsp;you need to set the value to&nbsp;<strong data-renderer-mark="true">true</strong>. If you are not using in app notification feature of&nbsp;<strong data-renderer-mark="true">Visilabs</strong>, we recommend that you leave this value to&nbsp;<strong data-renderer-mark="true">false</strong>&nbsp;in terms of performance because in each event request, another request is sent to check whether there exists a notification for the relevant event.</p></li><li><p data-renderer-start-pos="1963"><strong data-renderer-mark="true">channel</strong>&nbsp;: Default value is&nbsp;<strong data-renderer-mark="true">"IOS"</strong>. If you want to categorize the events of your IOS application under another different channel name in the&nbsp;<strong data-renderer-mark="true">Analytics</strong>&nbsp;section of the admin panel you may change this value.</p></li><li><p data-renderer-start-pos="2169"><strong data-renderer-mark="true">requestTimeoutInSeconds</strong>&nbsp;: Default value is&nbsp;<strong data-renderer-mark="true">30</strong>. The request timeout value in seconds to send data to&nbsp;<strong data-renderer-mark="true">Visilabs</strong>&nbsp;servers and receive data from.</p></li><li><p data-renderer-start-pos="2312"><strong data-renderer-mark="true">geofenceEnabled</strong>&nbsp;: Default value is&nbsp;<strong data-renderer-mark="true">false</strong>. If you want to use geofencing feature of&nbsp;<strong data-renderer-mark="true">Visilabs</strong>&nbsp;you need to set the value to&nbsp;<strong data-renderer-mark="true">true</strong>. If you are not using geofencing feature of&nbsp;<strong data-renderer-mark="true">Visilabs</strong>, we recommend that you leave this value to&nbsp;<strong data-renderer-mark="true">false</strong>&nbsp;in terms of performance and user experience because region monitoring would increase the battery consumption of your application and prompt users a popup dialog to allow location tracking.</p></li><li><p data-renderer-start-pos="2732"><strong data-renderer-mark="true">maxGeofenceCount</strong>&nbsp;: Default value is&nbsp;<strong data-renderer-mark="true">20</strong>.&nbsp;<strong data-renderer-mark="true">Apple</strong>&nbsp;prevents any single application from monitoring more than 20 regions simultaneously. Visilabs can use all these slots. However if you need some of these slots for another use you can set this parameter to a value lower than&nbsp;<strong data-renderer-mark="true">20</strong>. Setting a value higher than 20 would not affect the maximum number of regions to be monitored.</p></li><li><p data-renderer-start-pos="3104"><strong data-renderer-mark="true">isIDFAEnabled</strong>: Default value is&nbsp;<em data-renderer-mark="true"><strong data-renderer-mark="true">true</strong></em>. After iOS 14, if you want to use AdvertisingTrackingID you should request a permission from end user. If this parameter is true, then you should add Privacy - Tracking Usage Description into your&nbsp;<em data-renderer-mark="true">Info.plist</em>&nbsp;with proper description. As soon as you call&nbsp;<span class="code" data-renderer-mark="true">createAPI</span>&nbsp;There will open popup to request permission from end user.</p></li></ul></li></ul><br />
-                                    <div style="text-align: center;"><img src="https://github.com/relateddigital/visilabs-ios/raw/master/Screenshots/profiles-page.png" style="width: 100%;max-width: 700px;" /><br />
-                                    <img src="https://github.com/relateddigital/visilabs-ios/raw/master/Screenshots/profile-page.png" style="width: 100%;max-width: 700px;" /></div>
+                                    <div style="text-align: center;"><img src="https://github.comhttps://raw.githubusercontent.com/relateddigital/visilabs-ios/raw/master/Screenshots/profiles-page.png" style="width: 100%;max-width: 700px;" /><br />
+                                    <img src="https://github.comhttps://raw.githubusercontent.com/relateddigital/visilabs-ios/raw/master/Screenshots/profile-page.png" style="width: 100%;max-width: 700px;" /></div>
                                 </div><!--//section-block-->
                                 <div id="debugging" class="section-block">
                                     <h3 class="block-title">Debugging</h3>
@@ -267,7 +310,7 @@ Visilabs.callAPI().sendCampaignParameters(properties: properties)</code></pre>
 properties["OM.sys.TokenID"] = "F7C5231053E6EC543B8930FB440752E2FE41B2CFC2AA8F4E9C4843D347E6A847" // Token ID to use for push messages
 properties["OM.sys.AppID"] = "VisilabsIOSExample" //App ID to use for push messages
 Visilabs.callAPI().customEvent("RegisterToken", properties: properties)</code></pre>
-<div style="text-align: center;"><img src="https://github.com/relateddigital/visilabs-ios/raw/master/Screenshots/ios-application-page.png" style="width: 100%;max-width: 700px;" /></div>
+<div style="text-align: center;"><img src="https://github.comhttps://raw.githubusercontent.com/relateddigital/visilabs-ios/raw/master/Screenshots/ios-application-page.png" style="width: 100%;max-width: 700px;" /></div>
                                     </div>
                             </section>
                             
