@@ -32,7 +32,7 @@
                     <h1 class="logo">
                         <a href="index.html">
                             <img aria-hidden="true" src="assets/images/ios-logo.svg" width="25"/>
-                            <span class="text-bold" style="vertical-align: middle;">iOS Visilabs</span>
+                            <span class="text-bold" style="vertical-align: middle;">iOS Visilabs Targeting Actions</span>
                         </a>
                     </h1>
                     
@@ -46,12 +46,20 @@
                 <div class="doc-body row">
                     <div class="doc-content col-md-9 col-12 order-1">
                         <div class="content-inner">
-                            <section id="installation" class="doc-section">
-                                <h2 class="section-title">Installation</h2>
+                            <section id="inapp-messageging" class="doc-section">
+                                <h2 class="section-title">In App Messageging</h2>
                                 <div class="section-block">
-                                    <p>VisilabsIOS is available through CocoaPods. To install it, simply add the following line to your Podfile: 
+                                    <p>In-app messages are notifications to your users when they are directly active in your mobile app. To enable In-App Messaging feature you need to set the value of inAppNotificationsEnabled parameter when calling createAPI to initialize the SDK.
                                     </p>
-                                    <p><code>pod 'VisilabsIOS'</code></p>
+                                    <pre><code class="language-swift">import VisilabsIOS
+
+func application(_ application: UIApplication, didFinishLaunchingWithOptions 
+    launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    Visilabs.createAPI(organizationId: "YOUR_ORGANIZATION_ID", profileId: "YOUR_PROFILE_ID"
+    , dataSource: "YOUR_DATASOURCE", inAppNotificationsEnabled: true, channel: "IOS"
+    , requestTimeoutInSeconds: 30, geofenceEnabled: false, maxGeofenceCount: 20)
+    return true
+    }</code></pre>
                                 </div>
                             </section><!--//doc-section-->
                             <section id="initializing" class="doc-section">
@@ -633,44 +641,14 @@ echo $y;
                         <div id="doc-nav" class="doc-nav">
 	                        
 	                            <nav id="doc-menu" class="nav doc-menu flex-column sticky">
-	                                <a class="nav-link scrollto" href="#installation">Installation</a>
-	                                <a class="nav-link scrollto" href="#initializing">Initializing</a>
-                                    <nav class="doc-sub-menu nav flex-column">
-                                        <a class="nav-link scrollto" href="#initial-parameters">Initial Parameters</a>
-                                        <a class="nav-link scrollto" href="#debugging">Debugging</a>
-                                    </nav><!--//nav-->
-                                    <a class="nav-link scrollto" href="#data-collection">Data Collection</a>
-                                    <nav class="doc-sub-menu nav flex-column">
-                                        <a class="nav-link scrollto" href="#signup">Signup</a>
-                                        <a class="nav-link scrollto" href="#login">Login</a>
-                                        <a class="nav-link scrollto" href="#page-view">Page View</a>
-                                        <a class="nav-link scrollto" href="#product-view">Product View</a>
-                                        <a class="nav-link scrollto" href="#add-to-cart">Add to Cart</a>
-                                        <a class="nav-link scrollto" href="#product-purchase">Product Purchase</a>
-                                        <a class="nav-link scrollto" href="#category-view">Category View</a>
-                                        <a class="nav-link scrollto" href="#in-app-search">In App Search</a>
-                                        <a class="nav-link scrollto" href="#banner-click">Banner Click</a>
-                                        <a class="nav-link scrollto" href="#add-to-favorites">Add to Favorites</a>
-                                        <a class="nav-link scrollto" href="#remove-from-favorites">Remove From Favorites</a>
-                                        <a class="nav-link scrollto" href="#send-campaign-parameters">Send Campaign Parameters</a>
-                                        <a class="nav-link scrollto" href="#push-message-token-registration">Push Message Token Registration</a>
-                                    </nav><!--//nav-->
-	                                <a class="nav-link scrollto" href="#code-section">Code</a>
-                                    <nav class="doc-sub-menu nav flex-column">
-                                        <a class="nav-link scrollto" href="#html">HTML</a>
-                                        <a class="nav-link scrollto" href="#css">CSS</a>
-                                        <a class="nav-link scrollto" href="#sass">Sass</a>
-                                        <a class="nav-link scrollto" href="#less">LESS</a>
-                                        <a class="nav-link scrollto" href="#javascript">JavaScript</a>
-                                        <a class="nav-link scrollto" href="#python">Python</a>
-                                        <a class="nav-link scrollto" href="#php">PHP</a>
-                                        <a class="nav-link scrollto" href="#handlebars">Handlebars</a>
-                                    </nav><!--//nav-->
-	                                <a class="nav-link scrollto" href="#callouts-section">Callouts</a>
-	                                <a class="nav-link scrollto" href="#tables-section">Tables</a>
-	                                <a class="nav-link scrollto" href="#buttons-section">Buttons</a>
-	                                <a class="nav-link scrollto" href="#video-section">Video</a>
-	                                <a class="nav-link scrollto" href="#icons-section">Icons</a>
+	                                <a class="nav-link scrollto" href="#installation">In App Messageging</a>
+	                                <a class="nav-link scrollto" href="#initializing">Favorite Attribute Actions</a>
+                                    <a class="nav-link scrollto" href="#data-collection">Story Actions</a>
+	                                <a class="nav-link scrollto" href="#code-section">Mail Subscription Form</a>
+	                                <a class="nav-link scrollto" href="#callouts-section">Spin to Win</a>
+	                                <a class="nav-link scrollto" href="#tables-section">Geofencing</a>
+	                                <a class="nav-link scrollto" href="#buttons-section">Recommendation</a>
+	                                <a class="nav-link other-page" href="#video-section">iOS Visilabs Setup & Data Collection</a>
 	                            </nav><!--//doc-menu-->
 	                        
                         </div>

@@ -1029,6 +1029,18 @@ select {
   color: #8A40A7;
 }
 
+.nav-link.other-page {
+  color: #000;
+  border: 1px solid green;
+  border-radius: 10px;
+}
+
+.nav-link.other-page:hover {
+  color: #fff;
+  border-radius: 10px;
+  background-color: green;
+}
+
 /*
 .affix-top {
   position: absolute;
