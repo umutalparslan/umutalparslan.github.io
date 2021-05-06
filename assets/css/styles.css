@@ -1046,10 +1046,6 @@ table td {
   border: 1px solid #3b434b !important;
 }
 
-table tr:nth-child(2n) {
-  background-color: #161b22 !important;
-}
-
 table {
   display: block !important;
   width: 100% !important;

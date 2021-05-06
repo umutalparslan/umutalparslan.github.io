@@ -105,38 +105,77 @@ There are 9 types of in-app messages:
     </p>
                                 </div>
                             </section><!--//doc-section-->
-                            <section id="initializing" class="doc-section">
-                                <h2 class="section-title">Initializing</h2>
-                                <div id="step1"  class="section-block">
+                            <section id="favorite-attribute-actions" class="doc-section">
+                                <h2 class="section-title">Favorite Attribute Actions</h2>
                                     
-                                    <p>Import VisilabsIOS in AppDelegate.swift and call createAPI method within application:didFinishLaunchingWithOptions: method.
-                                        The code below is a sample initialization of Visilabs library.
+                                    <p>You can access favorite attributes of the Targeting Actions of type Favorite Attribute Action that you defined from the https://intelligence.relateddigital.com/#Target/TargetingAction/TAList/ section on the RMC panel via the mobile application as follows.
                                     </p>
                                     <div class="code-block">
-                                        <pre><code class="language-swift">import VisilabsIOS
-
-func application(_ application: UIApplication, didFinishLaunchingWithOptions 
-        launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        Visilabs.createAPI(organizationId: "YOUR_ORGANIZATION_ID", profileId: "YOUR_PROFILE_ID"
-        , dataSource: "YOUR_DATASOURCE", inAppNotificationsEnabled: false, channel: "IOS"
-        , requestTimeoutInSeconds: 30, geofenceEnabled: false, maxGeofenceCount: 20, isIDFAEnabled: true)
-        return true
-    } </code></pre>
+                                        <pre><code class="language-swift">Visilabs.callAPI().getFavoriteAttributeActions { (response) in
+                                        if let error = response.error {
+                                        print(error)
+                                        } else {
+                                        if let favoriteBrands = response.favorites[.brand] {
+                                        for brand in favoriteBrands {
+                                        print(brand)
+                                        }
+                                        }
+                                        if let favoriteCategories = response.favorites[.category] {
+                                        for category in favoriteCategories {
+                                        print(category)
+                                        }
+                                        }
+                                        }
+}</code></pre>
                                     </div><!--//code-block-->
-                                </div><!--//section-block-->
-                                <div id="initial-parameters"  class="section-block">
-                                    <h3 class="block-title">Initial Parameters</h3>
-                                    <ul class="ak-ul" data-indent-level="1"><li><p data-renderer-start-pos="857"><strong data-renderer-mark="true">Mandatory Parameters</strong></p><ul class="ak-ul" data-indent-level="2"><li><p data-renderer-start-pos="881"><strong data-renderer-mark="true">organizationId</strong>&nbsp;: The ID of your organization. The value of this parameter could be obtained by&nbsp;<a class="sc-itybZL iLAMzb" href="https://intelligence.relateddigital.com/#Management/UserManagement/Profiles" title="https://intelligence.relateddigital.com/#Management/UserManagement/Profiles" data-renderer-mark="true">https://intelligence.relateddigital.com/#Management/UserManagement/Profiles</a>&nbsp;and selecting relevant profile.</p></li><li><p data-renderer-start-pos="1087"><strong data-renderer-mark="true">profileId</strong>&nbsp;: The ID of the profile you want to integrate. The value of this parameter could be obtained by&nbsp;<a class="sc-itybZL iLAMzb" href="https://intelligence.relateddigital.com/#Management/UserManagement/Profiles" title="https://intelligence.relateddigital.com/#Management/UserManagement/Profiles" data-renderer-mark="true">https://intelligence.relateddigital.com/#Management/UserManagement/Profiles</a>&nbsp;and selecting relevant profile.</p></li><li><p data-renderer-start-pos="1304"><strong data-renderer-mark="true">dataSource</strong>&nbsp;: The data source of the profile you want to integrate. The value of this parameter could be obtained by&nbsp;<a class="sc-itybZL iLAMzb" href="https://intelligence.relateddigital.com/#Management/UserManagement/Profiles" title="https://intelligence.relateddigital.com/#Management/UserManagement/Profiles" data-renderer-mark="true">https://intelligence.relateddigital.com/#Management/UserManagement/Profiles</a>&nbsp;and selecting relevant profile.</p></li></ul></li><li><p data-renderer-start-pos="1533"><strong data-renderer-mark="true">Optional Parameters</strong></p><ul class="ak-ul" data-indent-level="2"><li><p data-renderer-start-pos="1556"><strong data-renderer-mark="true">inAppNotificationsEnabled</strong>&nbsp;: Default value is&nbsp;<strong data-renderer-mark="true">false</strong>. If you want to use in app notification feature of&nbsp;<strong data-renderer-mark="true">Visilabs</strong>&nbsp;you need to set the value to&nbsp;<strong data-renderer-mark="true">true</strong>. If you are not using in app notification feature of&nbsp;<strong data-renderer-mark="true">Visilabs</strong>, we recommend that you leave this value to&nbsp;<strong data-renderer-mark="true">false</strong>&nbsp;in terms of performance because in each event request, another request is sent to check whether there exists a notification for the relevant event.</p></li><li><p data-renderer-start-pos="1963"><strong data-renderer-mark="true">channel</strong>&nbsp;: Default value is&nbsp;<strong data-renderer-mark="true">"IOS"</strong>. If you want to categorize the events of your IOS application under another different channel name in the&nbsp;<strong data-renderer-mark="true">Analytics</strong>&nbsp;section of the admin panel you may change this value.</p></li><li><p data-renderer-start-pos="2169"><strong data-renderer-mark="true">requestTimeoutInSeconds</strong>&nbsp;: Default value is&nbsp;<strong data-renderer-mark="true">30</strong>. The request timeout value in seconds to send data to&nbsp;<strong data-renderer-mark="true">Visilabs</strong>&nbsp;servers and receive data from.</p></li><li><p data-renderer-start-pos="2312"><strong data-renderer-mark="true">geofenceEnabled</strong>&nbsp;: Default value is&nbsp;<strong data-renderer-mark="true">false</strong>. If you want to use geofencing feature of&nbsp;<strong data-renderer-mark="true">Visilabs</strong>&nbsp;you need to set the value to&nbsp;<strong data-renderer-mark="true">true</strong>. If you are not using geofencing feature of&nbsp;<strong data-renderer-mark="true">Visilabs</strong>, we recommend that you leave this value to&nbsp;<strong data-renderer-mark="true">false</strong>&nbsp;in terms of performance and user experience because region monitoring would increase the battery consumption of your application and prompt users a popup dialog to allow location tracking.</p></li><li><p data-renderer-start-pos="2732"><strong data-renderer-mark="true">maxGeofenceCount</strong>&nbsp;: Default value is&nbsp;<strong data-renderer-mark="true">20</strong>.&nbsp;<strong data-renderer-mark="true">Apple</strong>&nbsp;prevents any single application from monitoring more than 20 regions simultaneously. Visilabs can use all these slots. However if you need some of these slots for another use you can set this parameter to a value lower than&nbsp;<strong data-renderer-mark="true">20</strong>. Setting a value higher than 20 would not affect the maximum number of regions to be monitored.</p></li><li><p data-renderer-start-pos="3104"><strong data-renderer-mark="true">isIDFAEnabled</strong>: Default value is&nbsp;<em data-renderer-mark="true"><strong data-renderer-mark="true">true</strong></em>. After iOS 14, if you want to use AdvertisingTrackingID you should request a permission from end user. If this parameter is true, then you should add Privacy - Tracking Usage Description into your&nbsp;<em data-renderer-mark="true">Info.plist</em>&nbsp;with proper description. As soon as you call&nbsp;<span class="code" data-renderer-mark="true">createAPI</span>&nbsp;There will open popup to request permission from end user.</p></li></ul></li></ul><br />
-                                    <div style="text-align: center;"><img src="https://github.comhttps://raw.githubusercontent.com/relateddigital/visilabs-ios/raw/master/Screenshots/profiles-page.png" style="width: 100%;max-width: 700px;" /><br />
-                                    <img src="https://github.comhttps://raw.githubusercontent.com/relateddigital/visilabs-ios/raw/master/Screenshots/profile-page.png" style="width: 100%;max-width: 700px;" /></div>
-                                </div><!--//section-block-->
-                                <div id="debugging" class="section-block">
-                                    <h3 class="block-title">Debugging</h3>
-                                    <p>You can turn on logging by setting loggingEnabled property to true. If enabled the</p>
-                                    <pre><code class="language-swift">Visilabs.callAPI().loggingEnabled = true</code></pre>
-                                    <p>The default protocol for requests to Visilabs servers is https. If you want to debug your requests more easily, you can change your protocol by setting insecureProtocol property to true.</p>
-                                    <pre><code class="language-swift">Visilabs.callAPI().insecureProtocol = true</code></pre>
-                                </div>
+                                    <p>You can also access favorite attributes of a particular Targeting Action by specifying the ID.</p>
+                                    <div style="text-align: center;">
+                                    <img src="assets/images/favorite.png" style="width: 100%;max-width: 700px;" /></div>
+                                    <div class="code-block">
+                                        <pre>
+                                            <code class="language-swift">Visilabs.callAPI().getFavoriteAttributeActions(actionId: 188) { (response) in
+                                                if let error = response.error {
+                                                print(error)
+                                                } else {
+                                                if let favoriteBrands = response.favorites[.brand] {
+                                                for brand in favoriteBrands {
+                                                print(brand)
+                                                }
+                                                }
+                                                if let favoriteCategories = response.favorites[.category] {
+                                                for category in favoriteCategories {
+                                                print(category)
+                                                }
+                                                }
+                                                }
+}</code>
+                                        </pre>
+                                    </div>
+                                    <p>favorites property of response object is a dictionary which has an enum as key and an array of Strings as value. The cases of VisilabsFavoriteAttribute enum are the followings:                                        
+                                    </p>
+                                    <div class="code-block">
+                                        <pre>
+                                            <code class="language-swift">public enum VisilabsFavoriteAttribute: String {
+                                            case ageGroup
+                                            case attr1
+                                            case attr2
+                                            case attr3
+                                            case attr4
+                                            case attr5
+                                            case attr6
+                                            case attr7
+                                            case attr8
+                                            case attr9
+                                            case attr10
+                                            case brand
+                                            case category
+                                            case color
+                                            case gender
+                                            case material
+                                            case title
+}</code>
+                                        </pre>
+                                    </div>
                             </section><!--//doc-section-->
                             <section id="data-collection" class="doc-section">
                                 <h2 class="section-title">Data Collection</h2>
